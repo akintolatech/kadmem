@@ -1,0 +1,156 @@
+ 
+:root {
+
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #fdfcf8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top buttons */
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.btn {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+.btn-yellow {
+    background: #f4b400;
+    color: white;
+}
+.btn-outline-yellow {
+    border: 1px solid #f4b400;
+    color: #f4b400;
+    background: transparent;
+}
+.btn-outline-purple {
+    border: 1px solid #a36ff4;
+    color: #a36ff4;
+    background: transparent;
+    position: relative;
+}
+
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: #fdfcf8;
+    min-width: 230px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e5e2da;
+    z-index: 1;
+}
+.dropdown-content div {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.dropdown-content div:last-child {
+    border-bottom: none;
+}
+.dropdown-content div:hover {
+    background-color: #f6f3ed;
+}
+.dropdown-content .title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+.dropdown-content .subtitle {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Show dropdown */
+.dropdown.show .dropdown-content {
+    display: block;
+}
+
+/* Memorial card */
+.card {
+    margin-top: 50px;
+    background: linear-gradient(to bottom right, #fffdf5, #fdf0c4);
+    border: 1px solid #f5e7c3;
+    border-radius: 12px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.card h2 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    color: #d6a500;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.photo {
+    width: 100px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.card p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+.card .name {
+    font-weight: bold;
+    color: #222;
+}
+.card .highlight {
+    color: #d6a500;
+    font-weight: bold;
+}
+.card .qr {
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+}
+
+/* Bottom buttons */
+.actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.actions button {
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}

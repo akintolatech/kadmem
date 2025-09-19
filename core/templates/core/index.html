@@ -1,158 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gate of Memory</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #fdfcf8;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardiverse Memorial</title>
+    <link type="text/css" href="{% static 'styles/style.css' %}" rel="stylesheet" />
 
-    /* Top buttons */
-    .top-bar {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 20px;
-      box-sizing: border-box;
-      position: relative;
-    }
-    .btn {
-      border: none;
-      padding: 8px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .btn-yellow {
-      background: #f4b400;
-      color: white;
-    }
-    .btn-outline-yellow {
-      border: 1px solid #f4b400;
-      color: #f4b400;
-      background: transparent;
-    }
-    .btn-outline-purple {
-      border: 1px solid #a36ff4;
-      color: #a36ff4;
-      background: transparent;
-      position: relative;
-    }
-
-    /* Dropdown menu */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 40px;
-      background-color: #fdfcf8;
-      min-width: 230px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e5e2da;
-      z-index: 1;
-    }
-    .dropdown-content div {
-      padding: 10px 15px;
-      font-size: 14px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-    }
-    .dropdown-content div:last-child {
-      border-bottom: none;
-    }
-    .dropdown-content div:hover {
-      background-color: #f6f3ed;
-    }
-    .dropdown-content .title {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 2px;
-    }
-    .dropdown-content .subtitle {
-      font-size: 12px;
-      color: #666;
-    }
-
-    /* Show dropdown */
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
-
-    /* Memorial card */
-    .card {
-      margin-top: 50px;
-      background: linear-gradient(to bottom right, #fffdf5, #fdf0c4);
-      border: 1px solid #f5e7c3;
-      border-radius: 12px;
-      padding: 30px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .card h2 {
-      margin: 0 0 15px 0;
-      font-size: 20px;
-      color: #d6a500;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .card img.photo {
-      width: 100px;
-      height: 120px;
-      border-radius: 8px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-    .card p {
-      margin: 6px 0;
-      font-size: 14px;
-    }
-    .card .name {
-      font-weight: bold;
-      color: #222;
-    }
-    .card .highlight {
-      color: #d6a500;
-      font-weight: bold;
-    }
-    .card .qr {
-      margin-top: 10px;
-      width: 60px;
-      height: 60px;
-    }
-
-    /* Bottom buttons */
-    .actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .actions button {
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 6px;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-size: 13px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-  </style>
 </head>
 <body>
   <!-- Top Bar -->
@@ -189,21 +43,33 @@
       </div>
     </div>
   </div>
+  <div class="spacer-x" style="height: 60px;"></div>
 
   <!-- Memorial Card -->
-  <div class="card">
-    <h2>GATE OF MEMORY</h2>
-    <img src="https://via.placeholder.com/100x120.png?text=Photo" alt="Memorial Photo" class="photo">
-    <p class="name">In Loving Memory</p>
-    <p class="highlight">of Naomi N</p>
-    <p style="font-size: 12px; color: #555;">Scan QR code with your camera to view hologram</p>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=demo" alt="QR Code" class="qr">
+   {% for memorial in memorials %}
+    <div class="card">
 
-    <div class="actions">
-      <button>🔗 Share</button>
-      <button>🖨 Print</button>
+        <h2>Kardiverse Memorial</h2>
+        
+            <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Memorial Photo" class="photo">
+        
+        
+        <p class="name">In Loving Memory</p>
+        <p class="highlight">{{ memorial.name }}</p>
+        <p style="font-size: 12px; color: #555;">Scan QR code with your camera to view hologram</p>
+        <img src="" alt="QR Code" class="qr">
+
+        <div class="actions">
+        <button>🔗 Share</button>
+        <button>🖨 Print</button>
+        </div>
+
     </div>
-  </div>
+    {% empty %}
+    <h2>There are no memorials here </h2>
+    <button class="btn btn-yellow">+ Create Memorial</button>
+    {% endfor %}
+  
 
   <script>
     function toggleDropdown() {
