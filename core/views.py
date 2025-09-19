@@ -8,14 +8,6 @@ from .forms import MemorialForm
 from .models import Memorial
 
 
-def health_check(request):
-    """Simple page showing service health"""
-    return render(request, "health_check.html", {
-        "status": "healthy",
-        "service": "memorial-cards"
-    })
-
-
 def index(request):
     context = {
         "message": "wired",
@@ -52,6 +44,14 @@ def create_memorial(request):
 
 
 
+def health_check(request):
+    """Simple page showing service health"""
+    return render(request, "health_check.html", {
+        "status": "healthy",
+        "service": "memorial-cards"
+    })
+7
+vb,
 # def register_nfc_tag(request):
 #     """Register an NFC tag for a memorial via form"""
 #     if request.method == "POST":
