@@ -1,6 +1,6 @@
- 
 :root {
     --pry-color: #f4b400;
+    --tertiary-color: #a36ff4;
 }
 
 body {
@@ -8,9 +8,6 @@ body {
     font-family: "Segoe UI", sans-serif;
     background: #fdfcf8;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 /* Top buttons */
@@ -20,27 +17,42 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
-    border: 1px solid red;
+    box-shadow: 0 3px 3px #4d37011c;
+    /* border: 1px solid red; */
     padding-inline: 12px;
 }
 
 .spacer-x {
-    height: 86px;
+    height: 70px;
+}
+
+main {
+    width: 94%;
+    margin: auto;
 }
 
 /* Buttons */
-
 button {
-    width: 100%;
     height: 44px;
     border-radius: 12px;
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+
+.secondary-button {
+    background-color: #f3e9ce;
+    border: 1px solid var(--pry-color);
+}
+
+.secondary-button:hover {
+    background-color: #fae7b3;
 }
 
 .btn {
@@ -114,16 +126,39 @@ button {
 }
 
 /* Memorial card */
+.card-container {
+    /* width: 70%; */
+    height: fit-content;
+    border:3px solid var(--tertiary-color);
+    margin: auto;
+    margin-block: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #dccafa18;
+}
+
+/* Progressive Enhancecment: For larger screens */
+@media screen and (min-width:540px){
+    .card-container {
+        width: 70%;
+        /* background-color: red; */
+    }
+}
+
 .card {
-    margin-top: 50px;
     background: linear-gradient(to bottom right, #fffdf5, #fdf0c4);
-    border: 1px solid #f5e7c3;
+    border: 3px solid var(--pry-color);
     border-radius: 12px;
     padding: 30px;
     width: 300px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
+
 .card h2 {
     margin: 0 0 15px 0;
     font-size: 20px;
@@ -152,10 +187,13 @@ button {
     color: #d6a500;
     font-weight: bold;
 }
+
 .card .qr {
     margin-top: 10px;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+
 }
 
 /* Bottom buttons */
@@ -167,13 +205,7 @@ button {
 }
 
 .actions button {
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 6px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 13px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    width: 120px;
 }
 
 

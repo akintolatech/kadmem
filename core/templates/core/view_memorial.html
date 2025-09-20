@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kardiverse Memorial</title>
+    <title>View {{ memorial.name }} Memorial</title>
     <link type="text/css" href="{% static 'styles/style.css' %}" rel="stylesheet" />
 
 </head>
 <body>
   <!-- Top Bar -->
   <div class="top-bar">
-    <a href="{% url 'core:create_memorial' %}">
-        <button class="btn btn-yellow">+ Create Memorial</button>
-    </a>
+    <h3>{{ memorial.name }}'s Memorial</h3>
     <div>
       <!-- <button class="btn btn-outline-yellow">👁 View Demo</button> -->
       
@@ -45,38 +43,24 @@
       </div>
     </div>
   </div>
-  <div class="spacer-x"></div>
+  <div class="spacer-x" style="height: 60px;"></div>
 
-  <main>
-    <!-- Memorial Card -->
-    {% for memorial in memorials %}
-    <div class="card-container">
-      <div class="card">
+  <!-- Memorial Card -->
+    <div class="card">
 
-        <h2>GATE OF MEMORY</h2>
-        
-            <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Memorial Photo" class="photo">
-        
-        
+        <h2>Kardiverse Memorial</h2>
+        <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Memorial Photo" class="photo">
         <p class="name">In Loving Memory</p>
         <p class="highlight">{{ memorial.name }}</p>
         <p style="font-size: 12px; color: #555;">Scan QR code with your camera to view hologram</p>
-        <img src="{% if memorial.qr_code_data %} {{ memorial.qr_code_data.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="QR Code" class="qr">
-      </div>
-      <div class="actions">
-        <button class="secondary-button">🔗 Share</button>
-        <button class="secondary-button">🖨 Print</button>
-      </div>
-    </div>
-    {% empty %}
+        <img src="" alt="QR Code" class="qr">
 
-    <h2>There are no memorials here </h2>
-    <a href="{% url 'core:create_memorial' %}">
-        <button class="btn btn-yellow">+ Create Memorial</button>
-    </a>
-    {% endfor %}
-  </main>
-  
+        <div class="actions">
+        <button>🔗 Share</button>
+        <button>🖨 Print</button>
+        </div>
+
+    </div>
   
 
   <script>
@@ -94,6 +78,5 @@
       }
     }
   </script>
-
 </body>
 </html>
