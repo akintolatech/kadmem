@@ -1,6 +1,6 @@
  
 :root {
-
+    --pry-color: #f4b400;
 }
 
 body {
@@ -16,13 +16,31 @@ body {
 /* Top buttons */
 .top-bar {
     width: 100%;
+    height: 70px;
     display: flex;
     justify-content: space-between;
-    padding: 15px 20px;
+    align-items: center;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
+    border: 1px solid red;
+    padding-inline: 12px;
+}
+
+.spacer-x {
+    height: 86px;
+}
+
+/* Buttons */
+
+button {
+    width: 100%;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .btn {
@@ -33,6 +51,7 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
+
 .btn-yellow {
     background: #f4b400;
     color: white;
@@ -155,4 +174,28 @@ body {
     cursor: pointer;
     font-size: 13px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+.form-container {
+    max-width: 660px;
+    border: 1px solid red;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.form-container div {
+    margin-bottom: 12px;
+}
+
+input, select {
+    width: 100%;
+    height: 40px;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid var(--pry-color);
 }

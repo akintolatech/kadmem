@@ -8,17 +8,13 @@ class Memorial(models.Model):
         ('female', 'Female'),
         ('child', 'Child'),
     ]
-
     name = models.CharField(max_length=255)
+    card_type = models.CharField(max_length=10, choices=CARD_TYPES)
     birth_date = models.DateField()
     death_date = models.DateField()
     memory_text = models.TextField(blank=True, null=True)
-    card_type = models.CharField(max_length=10, choices=CARD_TYPES)
     photo = models.ImageField(upload_to="photos/", blank=True, null=True)
-
-    # ✅ changed to ImageField
     qr_code_data = models.ImageField(upload_to="qr/", blank=True, null=True)
-
     nfc_data = models.TextField(blank=True, null=True)
     gps_latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
     gps_longitude = models.DecimalField(max_digits=11, decimal_places=8, blank=True, null=True)

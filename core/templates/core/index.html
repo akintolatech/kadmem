@@ -11,9 +11,11 @@
 <body>
   <!-- Top Bar -->
   <div class="top-bar">
-    <button class="btn btn-yellow">+ Create Memorial</button>
+    <a href="{% url 'core:create_memorial' %}">
+        <button class="btn btn-yellow">+ Create Memorial</button>
+    </a>
     <div>
-      <button class="btn btn-outline-yellow">👁 View Demo</button>
+      <!-- <button class="btn btn-outline-yellow">👁 View Demo</button> -->
       
       <!-- Dropdown -->
       <div class="dropdown" id="dropdown">

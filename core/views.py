@@ -15,6 +15,12 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
+def view_memorial(request, memorial_id):
+    memorial = Memorial.objects.get(pk=memorial_id)
+    context = {
+        "memorial": memorial
+    }
+    return render (request, "view_memorial.html", context)
 
 def create_memorial(request):
     if request.method == "POST":
@@ -25,7 +31,7 @@ def create_memorial(request):
 
             # Build the URL for the memorial detail page
             base_url = request.build_absolute_uri('/')[:-1]
-            memorial_url = base_url + reverse('memorial:view_memorial', args=[memorial.id])
+            memorial_url = base_url + reverse('core:view_memorial', args=[memorial.id])
 
             # Create QR code in memory
             qr = segno.make(memorial_url)
@@ -36,11 +42,11 @@ def create_memorial(request):
             # Save to ImageField
             memorial.qr_code_data.save(f"{memorial.id}_qr.png", File(buffer), save=True)
 
-            return redirect("memorial:list_memorial")
+            return redirect("core:index")
     else:
         form = MemorialForm()
 
-    return render(request, "memorial/create_memorial.html", {"form": form})
+    return render(request, "core/create_memorial.html", {"form": form})
 
 
 
@@ -50,8 +56,7 @@ def health_check(request):
         "status": "healthy",
         "service": "memorial-cards"
     })
-7
-vb,
+
 # def register_nfc_tag(request):
 #     """Register an NFC tag for a memorial via form"""
 #     if request.method == "POST":

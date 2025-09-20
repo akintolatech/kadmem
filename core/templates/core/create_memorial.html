@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Memorial</title>
+    <link type="text/css" href="{% static 'styles/style.css' %}" rel="stylesheet" />
+
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="{% url 'core:index' %}">
+      <button class="btn btn-yellow">Back</button>
+    </a>
+    <h3>Create Memorial</h3>
+  </div>
+  <div class="spacer-x"></div>
+
+  <!-- Form -->
+  <div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form }}
+      <div class="button-container">
+        <button>Submit</button>
+      </div>
+    </form>
+  </div>
+  
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdown").classList.toggle("show");
+    }
+
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+      if (!event.target.matches('.btn-outline-purple')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          dropdowns[i].classList.remove('show');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
