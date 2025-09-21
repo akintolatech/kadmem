@@ -1,5 +1,4 @@
 from io import BytesIO
-
 from django.core.files import File
 from django.urls import reverse
 import segno
@@ -16,7 +15,7 @@ def index(request):
     return render(request, 'memorial/index.html', context)
 
 def view_memorial(request, memorial_id):
-    memorial = Memorial.objects.get(pk=memorial_id)
+    memorial = get_object_or_404(Memorial, pk=memorial_id)
     context = {
         "memorial": memorial
     }
@@ -27,7 +26,7 @@ def create_memorial(request):
         form = MemorialForm(request.POST, request.FILES)
         if form.is_valid():
             memorial = form.save(commit=False)
-            memorial.save()  # save first to get ID
+            memorial.save()
 
             # Build the URL for the memorial detail page
             base_url = request.build_absolute_uri('/')[:-1]
@@ -55,22 +54,11 @@ def view_beamer_memorial(request, memorial_id):
     return render(request, "memorial/view_beamer_memorial.html", context)
 
 
+def view_ar_memorial(request, memorial_id):
+    memorial = get_object_or_404(Memorial, id=memorial_id)
+    context = { "memorial": memorial, }
+    return render(request, "memorial/view_ar_memorial.html", context)
 
-# def vr_view(request, id):
-#     memorial = get_object_or_404(Memorial, pk=id)
-#     return render(request, "memorial/vr_view.html", {"memorial": memorial})
-#
-# def ar_view(request, id):
-#     memorial = get_object_or_404(Memorial, pk=id)
-#     return render(request, "memorial/ar_view.html", {"memorial": memorial})
-#
-# def hologram_view(request, id):
-#     memorial = get_object_or_404(Memorial, pk=id)
-#     return render(request, "memorial/hologram_view.html", {"memorial": memorial})
-#
-# def nft_view(request, id):
-#     memorial = get_object_or_404(Memorial, pk=id)
-#     return render(request, "memorial/nft_view.html", {"memorial": memorial})
 
 
 
