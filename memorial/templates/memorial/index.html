@@ -9,35 +9,31 @@
 
 </head>
 <body>
-  <!-- Top Bar -->
   <div class="top-bar">
-    <a href="{% url 'core:create_memorial' %}">
+    <a href="{% url 'memorial:create_memorial' %}">
         <button class="btn btn-yellow">+ Create Memorial</button>
     </a>
     <div>
-      <!-- <button class="btn btn-outline-yellow">👁 View Demo</button> -->
-      
-      <!-- Dropdown -->
-      <div class="dropdown" id="dropdown">
+      <div class="dropdown" id="dropdown"> 
         <button class="btn btn-outline-purple" onclick="toggleDropdown()">Default ▼</button>
         <div class="dropdown-content">
-          <div>
+          <div onclick="openView('vr')">
             <div class="title">🎧 VR Memorial Garden</div>
             <div class="subtitle">Sacred VR experience with memory orbs</div>
           </div>
-          <div>
+          <div onclick="openView('ar')">
             <div class="title">📷 AR Experience</div>
             <div class="subtitle">Augmented reality memorial viewing</div>
           </div>
-          <div>
+          <div onclick="openView('beamer')">
             <div class="title">📽 Beamer Mode</div>
             <div class="subtitle">Projector presentation view</div>
           </div>
-          <div>
+          <div onclick="openView('hologram')">
             <div class="title">✨ Hologram View</div>
             <div class="subtitle">Interactive holographic experience</div>
           </div>
-          <div>
+          <div onclick="openView('nft')">
             <div class="title">💎 NFT Token</div>
             <div class="subtitle">View memorial as NFT</div>
           </div>
@@ -48,14 +44,13 @@
   <div class="spacer-x"></div>
 
   <main>
-    <!-- Memorial Card -->
     {% for memorial in memorials %}
-    <div class="card-container">
+    <div class="card-container" data-id="{{ memorial.id }}" onclick="selectCard(this)">
       <div class="card">
 
         <h2>GATE OF MEMORY</h2>
         
-            <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Memorial Photo" class="photo">
+        <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Memorial Photo" class="photo">
         
         
         <p class="name">In Loving Memory</p>
@@ -69,11 +64,12 @@
       </div>
     </div>
     {% empty %}
-
+    <center>
     <h2>There are no memorials here </h2>
-    <a href="{% url 'core:create_memorial' %}">
+    <a href="{% url 'memorial:create_memorial' %}">
         <button class="btn btn-yellow">+ Create Memorial</button>
     </a>
+    </center>
     {% endfor %}
   </main>
   
@@ -94,6 +90,54 @@
       }
     }
   </script>
+
+  <script>
+
+    // document.querySelectorAll('.view-link').forEach(link => {
+    //   link.addEventListener("click", function(e) {
+    //     if (!selectedMemorialId) {
+    //       e.preventDefault();
+    //       alert("Please select a memorial first.");
+    //     }
+    //   });
+    // });
+
+
+
+    let selectedMemorialId = null;
+
+    function selectCard(element) {
+      // Remove selection from all cards
+      document.querySelectorAll('.card-container').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      // Highlight clicked card
+      element.classList.add('selected');
+
+      // Store the selected ID
+      selectedMemorialId = element.getAttribute("data-id");
+    }
+
+
+
+    // Pass ID and and open 
+    function openView(mode) { 
+      if (!selectedMemorialId) { 
+        alert("Please select a memorial card first."); 
+        return;
+      }
+
+      const url = `/view_${mode}_memorial/${selectedMemorialId}`;
+      window.location.href = url;
+    }
+
+
+
+  </script>
+
+  
+
 
 </body>
 </html>

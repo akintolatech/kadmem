@@ -13,14 +13,14 @@ def index(request):
         "message": "wired",
         "memorials": Memorial.objects.all()
     }
-    return render(request, 'core/index.html', context)
+    return render(request, 'memorial/index.html', context)
 
 def view_memorial(request, memorial_id):
     memorial = Memorial.objects.get(pk=memorial_id)
     context = {
         "memorial": memorial
     }
-    return render (request, "view_memorial.html", context)
+    return render (request, "memorial/view_memorial.html", context)
 
 def create_memorial(request):
     if request.method == "POST":
@@ -31,7 +31,7 @@ def create_memorial(request):
 
             # Build the URL for the memorial detail page
             base_url = request.build_absolute_uri('/')[:-1]
-            memorial_url = base_url + reverse('core:view_memorial', args=[memorial.id])
+            memorial_url = base_url + reverse('memorial:view_memorial', args=[memorial.id])
 
             # Create QR code in memory
             qr = segno.make(memorial_url)
@@ -42,20 +42,68 @@ def create_memorial(request):
             # Save to ImageField
             memorial.qr_code_data.save(f"{memorial.id}_qr.png", File(buffer), save=True)
 
-            return redirect("core:index")
+            return redirect("memorial:index")
     else:
         form = MemorialForm()
 
-    return render(request, "core/create_memorial.html", {"form": form})
+    return render(request, "memorial/create_memorial.html", {"form": form})
+
+
+def view_beamer_memorial(request, memorial_id):
+    memorial = get_object_or_404(Memorial, id=memorial_id)
+    context = { "memorial": memorial, }
+    return render(request, "memorial/view_beamer_memorial.html", context)
 
 
 
-def health_check(request):
-    """Simple page showing service health"""
-    return render(request, "health_check.html", {
-        "status": "healthy",
-        "service": "memorial-cards"
-    })
+# def vr_view(request, id):
+#     memorial = get_object_or_404(Memorial, pk=id)
+#     return render(request, "memorial/vr_view.html", {"memorial": memorial})
+#
+# def ar_view(request, id):
+#     memorial = get_object_or_404(Memorial, pk=id)
+#     return render(request, "memorial/ar_view.html", {"memorial": memorial})
+#
+# def hologram_view(request, id):
+#     memorial = get_object_or_404(Memorial, pk=id)
+#     return render(request, "memorial/hologram_view.html", {"memorial": memorial})
+#
+# def nft_view(request, id):
+#     memorial = get_object_or_404(Memorial, pk=id)
+#     return render(request, "memorial/nft_view.html", {"memorial": memorial})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def health_check(request):
+#     """Simple page showing service health"""
+#     return render(request, "health_check.html", {
+#         "status": "healthy",
+#         "service": "memorial-cards"
+#     })
 
 # def register_nfc_tag(request):
 #     """Register an NFC tag for a memorial via form"""

@@ -129,7 +129,6 @@ button {
 .card-container {
     /* width: 70%; */
     height: fit-content;
-    border:3px solid var(--tertiary-color);
     margin: auto;
     margin-block: 24px;
     display: flex;
@@ -138,8 +137,15 @@ button {
     align-items: center;
     border-radius: 12px;
     cursor: pointer;
-    background-color: #dccafa18;
+    
 }
+
+.card-container.selected {
+  border:3px solid var(--tertiary-color);
+  background-color: #f0f8ff;
+  /* background-color: #dccafa18; */
+}
+
 
 /* Progressive Enhancecment: For larger screens */
 @media screen and (min-width:540px){
