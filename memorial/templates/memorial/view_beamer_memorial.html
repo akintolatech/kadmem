@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,31 +11,36 @@
   <div class="slider-container">
 
     <div class="slide-header">
-        <div class="slide-controls">
-          <div class="controls">
-            <img src="img/icons/settings.svg" />
-          </div>
-          <div class="controls fullscreen-toggle">
-            <img src="img/icons/fullscreen.svg" />
-          </div>
-          <div class="controls pause-toggle">
-            <img src="img/icons/pause.svg" />
-          </div>
-          <div class="controls close-slide">
-            <img src="img/icons/close.svg" />
-          </div>
+      <div class="slide-controls">
+        <div class="controls">
+          <img src="{% static 'img/icons/settings.svg' %}" />
         </div>
+        <div class="controls fullscreen-toggle"
+          data-fullscreen = "{% static 'img/icons/fullscreen.svg' %}"
+          data-exitfullscreen = "{% static 'img/icons/fullscreen_exit.svg' %}">
+          <img src="{% static 'img/icons/fullscreen.svg' %}" />
+        </div>
+        <div class="controls pause-toggle"
+            data-play="{% static 'img/icons/play.svg' %}"
+            data-pause="{% static 'img/icons/pause.svg' %}">
+          <img src="{% static 'img/icons/pause.svg' %}" />
+        </div>
+        <div class="controls close-slide">
+          <img src="{% static 'img/icons/close.svg' %}" />
+        </div>
+      </div>
     </div>
 
     <div class="slideshow">
       <div class="slide active">
-        <img src="img/user.jpg" alt="Naomi N">
-        <h2>Naomi N</h2>
+        <h1>Let take a moment to honour and remember<br/>{{ memorial.name }}</h1>
       </div>
 
       <div class="slide">
-        <img src="img/user.jpg" alt="Person B">
-        <h2>Person B</h2>
+        <img src="{% if memorial.photo %} {{ memorial.photo.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="Naomi N">
+        <h3>In Loving Memory of</h3>
+        <h2>{{ memorial.name }}</h2>
+        <h4>{{ memorial.birth_date }} - {{ memorial.death_date }}</h4>
       </div>
 
       <div class="slide">
@@ -47,9 +53,9 @@
       <button class="nav-btn nav-left">&#10094;</button>
       <button class="nav-btn nav-right">&#10095;</button>
     </div>
-
-    <div class="dots"></div>
-
+    <center>
+      <div class="dots"></div>
+    </center>
     <div class="instructions">
       F for fullscreen • Space/Arrows to navigate • ESC to exit
     </div>
@@ -118,6 +124,7 @@
     opacity: 0;
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
     pointer-events: none;
+    font-size: clamp(1.8rem, calc(10+1rem), 5vw);
   }
 
   .slide.active {
@@ -254,10 +261,15 @@
 
   // Fullscreen toggle
   function toggleFullscreen() {
+    const icon = fullscreenBtn.querySelector("img");
+    const fullScreenIcon = fullscreenBtn.getAttribute("data-fullscreen");
+    const fullScreenExitIcon = fullscreenBtn.getAttribute("data-exitfullscreen");
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
+      icon.src = fullScreenExitIcon;
     } else {
       document.exitFullscreen();
+      icon.src = fullScreenIcon;
     }
   }
 
@@ -266,22 +278,37 @@
   // Pause/Resume auto slide
   function togglePause() {
     isPaused = !isPaused;
+    const icon = pauseBtn.querySelector("img");
+    const playIcon = pauseBtn.getAttribute("data-play");
+    const pauseIcon = pauseBtn.getAttribute("data-pause");
+
     if (isPaused) {
       clearInterval(autoSlideInterval);
+      icon.src = playIcon;
     } else {
       startAutoSlide();
+      icon.src = pauseIcon;
     }
   }
+
   pauseBtn.addEventListener("click", togglePause);
 
   // Close (exit fullscreen if open, else stop slideshow)
+  // closeBtn.addEventListener("click", () => {
+  //   if (document.fullscreenElement) {
+  //     document.exitFullscreen();
+  //   } else {
+  //     clearInterval(autoSlideInterval);
+  //     document.querySelector(".slider-container").style.display = "none";
+  //   }
+  // });
+
   closeBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
-    } else {
-      clearInterval(autoSlideInterval);
-      document.querySelector(".slider-container").style.display = "none";
     }
+    // Redirect back to core page
+    window.location.href = "{% url 'memorial:index' %}";
   });
 
   // Auto slide
