@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Memorial</title>
     <link type="text/css" href="{% static 'styles/style.css' %}" rel="stylesheet" />
-
+    <link type="x-icon" href="{% static 'img/cross.webp' %}" rel="icon" />
 </head>
 <body>
   <!-- Top Bar -->
@@ -14,17 +14,18 @@
     <a href="{% url 'memorial:index' %}">
       <button class="btn btn-yellow">Back</button>
     </a>
-    <h3>Create Memorial</h3>
+    <!-- <h3>Create Memorial</h3> -->
   </div>
   <div class="spacer-x"></div>
 
   <!-- Form -->
-  <div class="form-container">
+
+  <div class="form-container" style=" margin: auto; margin-top: 32px;">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <div class="button-container">
-        <button>Submit</button>
+        <button class="btn btn-yellow" style="width: 100%;">Submit</button>
       </div>
     </form>
   </div>

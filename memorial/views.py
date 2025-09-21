@@ -60,6 +60,11 @@ def view_ar_memorial(request, memorial_id):
     return render(request, "memorial/view_ar_memorial.html", context)
 
 
+def view_vr_memorial(request, memorial_id):
+    memorial = get_object_or_404(Memorial, id=memorial_id)
+    context = { "memorial": memorial, }
+    return render(request, "memorial/view_vr_memorial.html", context)
+
 
 
 

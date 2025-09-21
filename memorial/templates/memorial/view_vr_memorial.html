@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ memorial.name }} – VR Memory</title>
+    <link type="x-icon" href="{% static 'img/cross.webp' %}" rel="icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #instructions {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="instructions">
+        W - Forward<br>
+        S - Backward<br>
+        A - Left<br>
+        D - Right<br>
+        Mouse - Look around<br>
+        Space - Jump
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Ambient light
+        const ambientLight = new THREE.AmbientLight(0x202020);
+        scene.add(ambientLight);
+
+        // Create starry background
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsVertices = [];
+        for(let i = 0; i < 5000; i++) {
+            const x = Math.random() * 2000 - 1000;
+            const y = Math.random() * 2000 - 1000;
+            const z = Math.random() * 2000 - 1000;
+            starsVertices.push(x, y, z);
+        }
+        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+        const starsMaterial = new THREE.PointsMaterial({
+            color: 0xFFFFFF,
+            size: 1,
+            sizeAttenuation: false
+        });
+        const starField = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(starField);
+
+        // Ground plane with grid
+        const groundGeometry = new THREE.PlaneGeometry(100, 100, 50, 50);
+        const groundMaterial = new THREE.MeshBasicMaterial({
+            color: 0x001133,
+            wireframe: true
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        scene.add(ground);
+
+        // Player controls
+        const velocity = new THREE.Vector3();
+        const direction = new THREE.Vector3();
+        let canJump = true;
+
+        camera.position.y = 2;
+
+        const keys = {
+            forward: false,
+            backward: false,
+            left: false,
+            right: false,
+            space: false
+        };
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            if (document.pointerLockElement === renderer.domElement) {
+                const movementX = event.movementX || 0;
+                const movementY = event.movementY || 0;
+                mouseX -= movementX * 0.002;
+                mouseY -= movementY * 0.002;
+                mouseY = Math.max(-Math.PI/2, Math.min(Math.PI/2, mouseY));
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            switch(event.code) {
+                case 'KeyW': keys.forward = true; break;
+                case 'KeyS': keys.backward = true; break;
+                case 'KeyA': keys.left = true; break;
+                case 'KeyD': keys.right = true; break;
+                case 'Space': if(canJump) velocity.y = 5; canJump = false; break;
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            switch(event.code) {
+                case 'KeyW': keys.forward = false; break;
+                case 'KeyS': keys.backward = false; break;
+                case 'KeyA': keys.left = false; break;
+                case 'KeyD': keys.right = false; break;
+            }
+        });
+
+        renderer.domElement.addEventListener('click', () => {
+            renderer.domElement.requestPointerLock();
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (document.pointerLockElement === renderer.domElement) {
+                // Fixed movement direction
+                direction.z = Number(keys.backward) - Number(keys.forward);
+                direction.x = Number(keys.right) - Number(keys.left);
+                direction.normalize();
+
+                const moveSpeed = 0.15;
+                velocity.x = direction.x * moveSpeed;
+                velocity.z = direction.z * moveSpeed;
+
+                // Gravity
+                velocity.y -= 0.15;
+                camera.position.y += velocity.y;
+
+                // Ground collision
+                if(camera.position.y < 2) {
+                    velocity.y = 0;
+                    camera.position.y = 2;
+                    canJump = true;
+                }
+
+                // Camera rotation
+                camera.rotation.order = 'YXZ';
+                camera.rotation.y = mouseX;
+                camera.rotation.x = mouseY;
+
+                // Movement relative to camera rotation
+                camera.position.x += velocity.x * Math.cos(mouseX) + velocity.z * Math.sin(mouseX);
+                camera.position.z += velocity.z * Math.cos(mouseX) - velocity.x * Math.sin(mouseX);
+
+                // Rotate starfield for effect
+                starField.rotation.y += 0.0001;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Set initial scene color
+        renderer.setClearColor(0x000011);
+
+        animate();
+    </script>
+</body>
+</html>

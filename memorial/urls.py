@@ -9,4 +9,5 @@ urlpatterns = [
     path('view_memorial/<int:memorial_id>', views.create_memorial, name='view_memorial' ),
     path('view_beamer_memorial/<int:memorial_id>', views.view_beamer_memorial, name="view_beamer_memorial"),
     path('view_ar_memorial/<int:memorial_id>', views.view_ar_memorial, name="view_ar_memorial"),
+    path('view_vr_memorial/<int:memorial_id>', views.view_vr_memorial, name="view_vr_memorial"),
 ]

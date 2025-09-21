@@ -114,7 +114,7 @@ closeBtn.addEventListener("click", () => {
 function startAutoSlide() {
   autoSlideInterval = setInterval(() => {
     if (!isPaused) nextSlide();
-  }, 2000); // 2 seconds
+  }, 4000);
 }
 
 function resetAutoSlide() {

@@ -214,10 +214,9 @@ button {
     width: 120px;
 }
 
-
 .form-container {
     max-width: 660px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     border-radius: 12px;
     padding: 16px;
     box-sizing: border-box;

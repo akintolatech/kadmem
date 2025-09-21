@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slide show</title>
   <link type="text/css" href="{% static 'styles/slider.css' %}" rel="stylesheet" />
+  <link type="x-icon" href="{% static 'img/cross.webp' %}" rel="icon" />
 </head>
 <body>
 
@@ -26,7 +27,7 @@
             data-pause="{% static 'img/icons/pause.svg' %}">
           <img src="{% static 'img/icons/pause.svg' %}" />
         </div>
-        <div class="controls close-slide" data-url="{% url 'index' %}">
+        <div class="controls close-slide" data-url="{% url 'memorial:index' %}">
           <img src="{% static 'img/icons/close.svg' %}" />
         </div>
       </div>
