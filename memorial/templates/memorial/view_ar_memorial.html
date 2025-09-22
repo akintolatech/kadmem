@@ -7,7 +7,6 @@
     <title>{{ memorial.name }} – AR Memory</title>
     <script src="{% static 'js/aframe.min.js' %}"></script>
     <script src="{% static 'js/aframe-ar.js' %}"></script>
-    <link type="x-icon" href="{% static 'img/cross.webp' %}" rel="icon" />
 
     <style>
       body {
@@ -83,4 +82,20 @@
         </div>
     </div>
   </body>
+
+  <script lang="javascript" src="{% static 'js/view-controls.js' %}"></script>
+
+  <!-- <script>
+    const closeBtn = document.querySelector(".close-slide");
+
+    closeBtn.addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+      // Redirect back to core page
+      window.location.href = closeBtn.dataset.url;
+    });
+  </script> -->
 </html>
+
+

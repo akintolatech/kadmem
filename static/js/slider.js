@@ -101,7 +101,6 @@ function togglePause() {
 
 pauseBtn.addEventListener("click", togglePause);
 
-
 closeBtn.addEventListener("click", () => {
   if (document.fullscreenElement) {
     document.exitFullscreen();
