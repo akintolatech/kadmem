@@ -147,22 +147,28 @@ button {
 }
 
 
-/* Progressive Enhancecment: For larger screens */
-@media screen and (min-width:540px){
-    .card-container {
-        width: 70%;
-        /* background-color: red; */
-    }
-}
+
 
 .card {
     background: linear-gradient(to bottom right, #fffdf5, #fdf0c4);
     border: 3px solid var(--pry-color);
     border-radius: 12px;
     padding: 30px;
-    width: 300px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Progressive Enhancecment: For larger screens */
+@media screen and (min-width:540px){
+    .card-container {
+        width: 70%;
+        /* background-color: red; */
+    }
+
+    .card {
+        width: 300px;
+    }
+
 }
 
 .card h2 {
