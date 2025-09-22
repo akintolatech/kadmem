@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kardiverse Memorial</title>
     <link type="text/css" href="{% static 'styles/style.css' %}" rel="stylesheet" />
-
+    <link type="x-icon" href="{% static 'img/cross.webp' %}" rel="icon" />
 </head>
 <body>
   <div class="top-bar">
@@ -17,18 +17,21 @@
       <div class="dropdown" id="dropdown"> 
         <button class="btn btn-outline-purple" onclick="toggleDropdown()">Default ▼</button>
         <div class="dropdown-content">
-          <div onclick="openView('vr')">
-            <div class="title">🎧 VR Memorial Garden</div>
-            <div class="subtitle">Sacred VR experience with memory orbs</div>
-          </div>
-          <div onclick="openView('ar')">
-            <div class="title">📷 AR Experience</div>
-            <div class="subtitle">Augmented reality memorial viewing</div>
-          </div>
           <div onclick="openView('beamer')">
             <div class="title">📽 Beamer Mode</div>
             <div class="subtitle">Projector presentation view</div>
           </div>
+
+           <div onclick="openView('ar')">
+            <div class="title">📷 AR Experience</div>
+            <div class="subtitle">Augmented reality memorial viewing</div>
+          </div>
+
+          <div onclick="openView('vr')">
+            <div class="title">🎧 VR Memorial Garden</div>
+            <div class="subtitle">Sacred VR experience with memory orbs</div>
+          </div>
+          
           <div onclick="openView('hologram')">
             <div class="title">✨ Hologram View</div>
             <div class="subtitle">Interactive holographic experience</div>
@@ -59,8 +62,8 @@
         <img src="{% if memorial.qr_code_data %} {{ memorial.qr_code_data.url }} {% else %}{% static 'img/user.jpg' %}{%  endif %}" alt="QR Code" class="qr">
       </div>
       <div class="actions">
-        <button class="secondary-button">🔗 Share</button>
-        <button class="secondary-button">🖨 Print</button>
+        <button class="secondary-button"><span><img src="{% static 'img/icons/share.svg' %}"/></span>Share</button>
+        <button class="secondary-button"><span><img src="{% static 'img/icons/print.svg' %}"/></span>Print</button>
       </div>
     </div>
     {% empty %}
